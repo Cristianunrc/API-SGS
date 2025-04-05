@@ -1,14 +1,10 @@
 
-package repositories;
+package com.apisgs.apisgs.repositories;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import java.util.Map;
 
-/**
- *
- * @author Usuario
- */
 @Repository
 public class UserRepository {
   
@@ -18,9 +14,9 @@ public class UserRepository {
     this.jdbcTemplate = jdbcTemplate;
   }
   
-  public Map<String, Object> findUser(String user, String password) {
+  public Map<String, Object> findUser(String username, String password) {
     String sql = " select * from usuarios where nombre = ? and clave = ? ";
-    return jdbcTemplate.queryForMap(sql, user, password);
+    return jdbcTemplate.queryForMap(sql, username, password);
   }
   
 }
