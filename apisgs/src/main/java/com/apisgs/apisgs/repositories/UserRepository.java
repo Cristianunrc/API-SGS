@@ -15,7 +15,7 @@ public class UserRepository {
   }
   
   public Map<String, Object> findUser(String username, String password) {
-    String sql = " select * from usuarios where nombre = ? and clave = ? ";
+    String sql = " select id_usuario, nombre from usuarios where nombre = ? and clave = ? ";
     return jdbcTemplate.queryForMap(sql, username, password);
   }
   
