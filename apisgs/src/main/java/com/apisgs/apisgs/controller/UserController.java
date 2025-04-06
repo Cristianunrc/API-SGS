@@ -16,6 +16,10 @@ public class UserController {
   
   private final UserService service;
   
+  private Map<String, Object> response;
+  
+  private Map<String, Object> user;
+  
   public UserController(UserService service) {
     this.service = service;
   }
@@ -25,17 +29,21 @@ public class UserController {
     String username = credentials.get("username");
     String password = credentials.get("password");
     
-    //validaciones de credenciales
+    response = new HashMap<>();
     
-    Map<String, Object> user = service.findUserByUsername(username, password);
-    
-    if (user != null) {
-      return ResponseEntity.ok(user); //se retorna el objeto junto con el codigo de estado http 200
+    if (username.isEmpty() || password.isEmpty()) {
+      response.put("error", "Nombre de usuario o contraseña no pueden estar vacios.");
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //http 400
     }
     
-    Map<String, Object> response = new HashMap<>();
+    user = service.findUserByUsername(username, password);
+    
+    if (user != null) {
+      return ResponseEntity.ok(user); //http 200
+    }
+    
     response.put("error", "Nombre de usuario o contraseña incorrectos.");
-    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response); //HTTP 401
   }
   
 }
