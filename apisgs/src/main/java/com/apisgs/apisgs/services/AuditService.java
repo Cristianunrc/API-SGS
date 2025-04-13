@@ -1,7 +1,10 @@
 package com.apisgs.apisgs.services;
 
+import com.apisgs.apisgs.exceptions.AuditException;
+
 import com.apisgs.apisgs.repositories.AuditRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.dao.DataAccessException;
 
 import java.util.Map;
 import java.util.List;
@@ -18,9 +21,8 @@ public class AuditService {
   public List<Map<String, Object>> getAuditInfo() {
     try {
       return auditRep.getAudit();
-    } catch (Exception e) { //capturar error en la ejecucion de la query
-      System.err.println(e.getMessage());
-      return null;
+    } catch (DataAccessException e) {
+      throw new AuditException("error en la ejecución de la query", e.getCause());
     }
   }
   
