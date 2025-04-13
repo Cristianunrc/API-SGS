@@ -24,17 +24,15 @@ public class AuditController {
     this.service = service;
   }
   
+  /**
+   * GET endpoint that returns auditory information.
+   * @return a response with information and http status code 200 if ok,
+   * or 500 if an error was ocurred.
+   */
   @GetMapping("/audit")
   public ResponseEntity<Object> audit() {
-    auditory = service.getAuditInfo();
-    
-    if (auditory != null) {
-      return ResponseEntity.ok(auditory); //http 200
-    }
-    
-    response = new HashMap<>();
-    response.put("error", "error al obtener los datos.");
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response); //http 500
+    auditory = service.getAuditInfo();   
+    return ResponseEntity.ok(auditory);
   }
   
 }
