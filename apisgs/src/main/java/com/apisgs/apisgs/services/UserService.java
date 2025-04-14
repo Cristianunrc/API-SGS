@@ -1,7 +1,10 @@
 package com.apisgs.apisgs.services;
 
 import com.apisgs.apisgs.repositories.UserRepository;
+import com.apisgs.apisgs.exceptions.LoginException;
+
 import org.springframework.stereotype.Service;
+import org.springframework.dao.DataAccessException;
 
 import java.util.Map;
 
@@ -17,8 +20,8 @@ public class UserService {
   public Map<String, Object> findUserByUsername(String username, String password) {
     try {
       return userRep.findUser(username, password);
-    } catch (Exception e) { 
-      return null;
+    } catch (DataAccessException e) { 
+      throw new LoginException("error en la ejecución de la query", e.getCause());
     }
   }
 }
