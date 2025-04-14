@@ -21,5 +21,17 @@ public class GlobalExceptionHandler {
     response.put("error", auditExcep.getMessage());
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
   }
+  
+  /**
+   * Handle global exception for login.
+   * @param loginExcep an instance LoginException
+   * @return a response with a message and http status code
+   */
+  @ExceptionHandler(LoginException.class)
+  public ResponseEntity<Object> handleAuditException(LoginException loginExcep) {
+    Map<String, Object> response = new HashMap<>();
+    response.put("error", loginExcep.getMessage());
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+  }
 
 }
