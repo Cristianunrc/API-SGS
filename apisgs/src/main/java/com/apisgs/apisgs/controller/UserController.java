@@ -15,7 +15,7 @@ public class UserController {
   
   private final UserService service;
   
-  private Map<String, Object> response;
+  private final Map<String, Object> response = new HashMap<>();
   
   private Map<String, Object> user;
   
@@ -27,8 +27,6 @@ public class UserController {
   public ResponseEntity<Object> login(@RequestBody Map<String, String> credentials) {
     String username = credentials.get("username");
     String password = credentials.get("password");
-    
-    response = new HashMap<>();
     
     if (username.isEmpty() || password.isEmpty()) {
       response.put("error", "Nombre de usuario o contraseña no pueden estar vacios.");
